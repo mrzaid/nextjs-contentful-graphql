@@ -23,7 +23,7 @@ export async function getStaticProps() {
           slug
           ingredients
           cookingTime
-          thumbnail{
+          thumbnail {
             url
           }
           featuredImage {
@@ -33,27 +33,28 @@ export async function getStaticProps() {
         }
       }
     }
-  `
-  const res = await fetch("https://graphql.contentful.com/content/v1/spaces/fr6kcovl026y/", {
-    method: "POST",
-    body: JSON.stringify({ query: query }),
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer iNlQ1MMJfxj99iiuwVMO9Rz1Uoies5hKeTPFI5rHLQY`,
-    },
-  });
-  const fetchedContent = await res.json()
+  `;
+  const res = await fetch(
+    "https://graphql.contentful.com/content/v1/spaces/fr6kcovl026y/",
+    {
+      method: "POST",
+      body: JSON.stringify({ query: query }),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer iNlQ1MMJfxj99iiuwVMO9Rz1Uoies5hKeTPFI5rHLQY`,
+      },
+    }
+  );
+  const fetchedContent = await res.json();
   // console.log("_____res", res);
-  return (
-    {props: {
-      recipe: fetchedContent?.data?.recipeCollection?.items
-    }}
-  )
-    
-  
+  return {
+    props: {
+      recipe: fetchedContent?.data?.recipeCollection?.items,
+    },
+  };
 }
 
-export default function Recipes({recipe}) {
+export default function Recipes({ recipe }) {
   // console.log("____props", props);
   return (
     <div className="recipe-list">
